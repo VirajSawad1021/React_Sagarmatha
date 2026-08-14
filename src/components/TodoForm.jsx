@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
 /**
- * TodoForm — ✅ This one is already finished. Read it as an example.
+ * TodoForm — the input box and the Add button.
  *
- * Two ideas to notice:
+ * Two ideas worth noticing:
  *
  * 1. CONTROLLED INPUT
  *    The input's value comes from state (`text`), and every keystroke
  *    updates that state via onChange. React owns the input.
  *
  * 2. CALLBACK PROP
- *    This component does NOT know how todos are stored. It just calls
+ *    This component has no idea how todos are stored. It just calls
  *    `onAdd(...)`, a function the parent (App.jsx) handed to it.
  */
 export default function TodoForm({ onAdd }) {

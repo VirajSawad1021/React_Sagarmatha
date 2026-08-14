@@ -3,11 +3,11 @@
  *
  * Props it receives:
  *   todo     → { id, text, done }
- *   onToggle → function to call with the todo's id
- *   onDelete → function to call with the todo's id
+ *   onToggle → function to call with this todo's id
+ *   onDelete → function to call with this todo's id
  *
- * ✅ This file is already wired up. Read how the buttons call the
- *    functions that came down from App.jsx.
+ * It holds no state of its own. It shows what it's given, and
+ * reports clicks back up to App.
  */
 export default function TodoItem({ todo, onToggle, onDelete }) {
   return (
