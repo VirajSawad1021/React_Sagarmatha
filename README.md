@@ -1,161 +1,211 @@
-# 📝 React Todo — Workshop Activity (Sagarmatha)
+# 📝 React Sagarmatha — Todo App & Workshop Guide
 
-A small Todo app that already works. Adding, checking off, deleting — all done.
-
-**Your job isn't to fix it. It's to grow it, using AI as your pair programmer.**
+A modern, lightweight Todo application built with **React 19** and **Vite**, designed as a clean starter project and workshop activity for mastering React state management and component-driven architecture.
 
 ---
 
-## 🚀 Getting started
+## 📌 Table of Contents
 
-You need [Node.js](https://nodejs.org) 18 or newer.
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Prerequisites](#-prerequisites)
+- [Step-by-Step Setup Guide](#-step-by-step-setup-guide)
+  - [1. Clone the Repository](#1-clone-the-repository)
+  - [2. Navigate to Project Directory](#2-navigate-to-project-directory)
+  - [3. Install Dependencies](#3-install-dependencies)
+  - [4. Start Development Server](#4-start-development-server)
+  - [5. Build for Production](#5-build-for-production)
+  - [6. Preview Production Build](#6-preview-production-build)
+- [Project Structure](#-project-structure)
+- [Architecture & Core Concepts](#-architecture--core-concepts)
+  - [Lifting State Up](#lifting-state-up)
+  - [State Immutability](#state-immutability)
+  - [Derived State](#derived-state)
+- [Workshop Challenges & Extensions](#-workshop-challenges--extensions)
+- [Scripts Reference](#-scripts-reference)
+- [Author](#-author)
+
+---
+
+## ✨ Features
+
+- **Add New Tasks:** Interactive form input to create todos.
+- **Toggle Completion:** Check off completed items with dynamic UI updates.
+- **Delete Tasks:** Remove individual todos cleanly.
+- **Real-Time Counter:** Live count of remaining vs. total tasks.
+- **Clean Styling:** Modern, responsive vanilla CSS design.
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework:** [React 19](https://react.dev/)
+- **Build Tool / Bundler:** [Vite](https://vitejs.dev/)
+- **Language:** JavaScript (ES6+ / JSX)
+- **Styling:** Vanilla CSS (CSS variables and modern layout)
+
+---
+
+## 📋 Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- **Node.js**: `v18.0.0` or newer ([Download Node.js](https://nodejs.org/))
+- **npm**: Comes bundled with Node.js (`npm -v` to check)
+- **Git**: For version control ([Download Git](https://git-scm.com/))
+
+---
+
+## 🚀 Step-by-Step Setup Guide
+
+Follow these steps to clone, set up, and run the project locally.
+
+### 1. Clone the Repository
+
+Open your terminal or command prompt and run:
+
+```bash
+git clone https://github.com/VirajSawad1021/React_Sagarmatha.git
+```
+
+### 2. Navigate to Project Directory
+
+```bash
+cd React_Sagarmatha
+```
+
+### 3. Install Dependencies
+
+Install the required npm packages:
 
 ```bash
 npm install
 ```
 
+### 4. Start Development Server
+
+Run the Vite development server with Hot Module Replacement (HMR):
+
 ```bash
 npm run dev
 ```
 
-Open the URL it prints (usually `http://localhost:5173`). Leave it running — the
-page refreshes itself every time you save a file.
+After running the command, open your browser and navigate to the displayed local URL:
+```text
+http://localhost:5173
+```
+
+### 5. Build for Production
+
+To create an optimized production build:
+
+```bash
+npm run build
+```
+
+This will bundle the assets into the `dist/` directory.
+
+### 6. Preview Production Build
+
+To locally test the production build:
+
+```bash
+npm run preview
+```
 
 ---
 
-## 📂 What's in here
+## 📂 Project Structure
 
 ```text
-src/
-├── App.jsx                  ← owns the todos, holds all the logic
-├── components/
-│   ├── TodoForm.jsx         ← the input box + Add button
-│   └── TodoItem.jsx         ← one row of the list
-├── index.css                ← all the styling
-└── main.jsx                 ← app entry point
+React_Sagarmatha/
+├── dist/                     # Production build output (generated upon build)
+├── node_modules/             # Installed dependencies
+├── public/                   # Static assets
+├── src/
+│   ├── components/
+│   │   ├── TodoForm.jsx      # Input form for adding new todos
+│   │   └── TodoItem.jsx      # Single todo item row with toggle and delete
+│   ├── App.jsx               # Root component: manages state & handles actions
+│   ├── index.css             # Global styles and CSS variables
+│   └── main.jsx              # Entry point for React DOM rendering
+├── .gitignore                # Files ignored by Git
+├── index.html                # HTML entry template
+├── package.json              # Project scripts and dependencies
+├── vite.config.js            # Vite configuration
+└── README.md                 # Project documentation and setup guide
 ```
 
-That's it. Four files, ~150 lines total. **Read all of it before you start** —
-it takes five minutes and everything after this will make more sense.
+---
 
-### The one idea to hold on to
+## 🧠 Architecture & Core Concepts
 
-`App.jsx` owns the list. Nobody else is allowed to change it.
-
+### Lifting State Up
+`App.jsx` acts as the single source of truth:
 ```text
         App          ← holds `todos` in useState
          │
-         │  data goes DOWN as props
+         │  data flows DOWN as props
          ▼
    ┌─────────────┬──────────────┐
    │  TodoForm   │   TodoItem   │
    └─────────────┴──────────────┘
          │              │
          └──────────────┘
-      events go UP by calling
-      the functions App passed down
+      events flow UP by calling
+      callback functions passed down
 ```
 
-A child never edits the list. It calls `onAdd(...)`, `onToggle(id)`, or
-`onDelete(id)`, and **App** decides what that means. This is called *lifting
-state up*, and it's most of what React architecture is.
+### State Immutability
+Always create new arrays/objects rather than mutating state directly:
+- **Adding:** `setTodos([...todos, newTodo])` instead of `todos.push(newTodo)`
+- **Toggling:** `todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : todo)`
+- **Deleting:** `todos.filter(todo => todo.id !== id)`
+
+### Derived State
+Don't duplicate state. Values that can be calculated from existing state are computed directly on render:
+```javascript
+const remaining = todos.filter((todo) => !todo.done).length;
+```
 
 ---
 
-## ✅ The activity
+## 🎯 Workshop Challenges & Extensions
 
-**Pick features from the list below and build them with AI.** Claude, ChatGPT,
-Copilot, Cursor — whatever you have.
+Try enhancing the application by implementing any of the following features:
 
-Aim for **2–3 features**, not ten. A feature that works and that you can explain
-beats five you pasted in and don't understand.
+### Level 1: Warm-Up
+- [ ] Add a **"Clear Completed"** button.
+- [ ] Display today's date in the header.
+- [ ] Add an empty-state illustration or custom message when no todos exist.
 
-### Feature ideas
+### Level 2: Intermediate
+- [ ] **Filter Tabs:** Filter todos by *All*, *Active*, and *Completed*.
+- [ ] **Edit Mode:** Double-click a todo item to edit its text.
+- [ ] **Priority Tags:** Assign High, Medium, or Low priority badges with color indicators.
+- [ ] **Search Bar:** Filter todos by keyword.
 
-**Warm-up**
-- Show today's date in the header
-- A "Clear completed" button that removes all finished todos
-- Sort so unfinished todos float to the top
-- Empty-state artwork or a friendlier message
-
-**Solid**
-- **Filter tabs** — All / Active / Done
-- **Edit a todo** — double-click the text to change it
-- **Priority levels** — high / medium / low, with a colour dot
-- **Due dates**, with overdue ones highlighted
-- **Search box** to filter todos by text
-
-**Ambitious**
-- **Save to `localStorage`** so the list survives a refresh
-- **Drag to reorder** the list
-- **Categories or tags**, with a count per tag
-- **Dark mode toggle** (the colours are all CSS variables at the top of
-  `index.css` — that's the whole job)
-- **Undo** the last delete
+### Level 3: Advanced
+- [ ] **Persistent Storage:** Sync todos with `localStorage` so data persists on reload.
+- [ ] **Dark Mode Toggle:** Switch between light and dark themes using CSS variables.
+- [ ] **Drag & Drop Reordering:** Reorder todos interactively.
+- [ ] **Undo Feature:** Add a toast notification with an undo option when deleting a task.
 
 ---
 
-## 🤖 How to actually use the AI
+## 📜 Scripts Reference
 
-This is the real skill being practised today. Three rules:
-
-**1. Give it the code, not a description of the code.**
-Paste the actual contents of `App.jsx`. Models guess badly when they can't see
-what you have.
-
-> ❌ "add a filter to my todo app"
->
-> ✅ "Here's my App.jsx: `[paste]`. Add All / Active / Done filter tabs above
-> the list. Keep the existing state shape and follow the style already in the
-> file — plain CSS classes in index.css, no new libraries."
-
-**2. Ask one feature at a time.** Get it working, check the browser, *then* ask
-for the next thing. Ten features in one prompt gives you a pile of code you
-can't debug.
-
-**3. Make it explain itself.** After it gives you code:
-
-> "Explain why you put that state in App instead of TodoItem."
->
-> "What breaks if I remove the `key` prop here?"
-
-If the explanation doesn't make sense to you, don't paste the code in yet —
-push back and ask again.
-
-### When it gives you something broken
-
-That will happen. Don't just re-prompt "it doesn't work" — that's the least
-useful thing you can say. Instead:
-
-1. Open the browser console (**F12**) and read the **first** red error. The rest
-   are usually knock-on effects.
-2. Paste that exact error back, along with the code it's complaining about.
-3. If it loops on the same wrong fix twice, stop. Start a fresh chat with just
-   the current file — the old conversation is poisoning it.
-
----
-
-## 🧠 Things AI gets wrong in React (watch for these)
-
-| What it does | Why it's wrong |
+| Command | Description |
 |---|---|
-| `todos.push(newTodo)` | mutates state — React won't re-render. Needs `setTodos([...todos, x])` |
-| `key={index}` in a `.map()` | breaks when you delete or reorder. Use `key={todo.id}` |
-| Adds `useState` for something derivable | like a `count` that mirrors `todos`. Just compute it — see `remaining` in `App.jsx` |
-| Suggests installing a library | for a 20-line feature. You don't need Redux for a todo list |
-| Rewrites the whole file | when you asked for one small change. Ask it for just the diff |
-
-If the AI hands you any of these, you now know more than it does about your app.
-Say so and ask for the fix.
+| `npm run dev` | Starts the Vite local development server |
+| `npm run build` | Compiles and optimizes code into `/dist` for production |
+| `npm run preview` | Spins up a local web server to preview the production build |
 
 ---
 
-## 🎤 At the end
+## 👤 Author
 
-Be ready to show the group, in ~2 minutes:
+- **Viraj Sawad** — [GitHub Profile](https://github.com/VirajSawad1021)
 
-1. **What you built** — demo it live
-2. **One prompt that worked well** — and why you think it did
-3. **One thing the AI got wrong** — and how you caught it
-
-That third one is the most interesting part. Bring it.
+---
+*Happy Coding! 🚀*
