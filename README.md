@@ -170,29 +170,6 @@ const remaining = todos.filter((todo) => !todo.done).length;
 
 ---
 
-## 🎯 Workshop Challenges & Extensions
-
-Try enhancing the application by implementing any of the following features:
-
-### Level 1: Warm-Up
-- [ ] Add a **"Clear Completed"** button.
-- [ ] Display today's date in the header.
-- [ ] Add an empty-state illustration or custom message when no todos exist.
-
-### Level 2: Intermediate
-- [ ] **Filter Tabs:** Filter todos by *All*, *Active*, and *Completed*.
-- [ ] **Edit Mode:** Double-click a todo item to edit its text.
-- [ ] **Priority Tags:** Assign High, Medium, or Low priority badges with color indicators.
-- [ ] **Search Bar:** Filter todos by keyword.
-
-### Level 3: Advanced
-- [ ] **Persistent Storage:** Sync todos with `localStorage` so data persists on reload.
-- [ ] **Dark Mode Toggle:** Switch between light and dark themes using CSS variables.
-- [ ] **Drag & Drop Reordering:** Reorder todos interactively.
-- [ ] **Undo Feature:** Add a toast notification with an undo option when deleting a task.
-
----
-
 ## 📜 Scripts Reference
 
 | Command | Description |
